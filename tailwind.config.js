@@ -13,7 +13,7 @@ module.exports = {
         primary: {
           DEFAULT: '#6A33FF',
           dark: '#301E5F',
-          md:"#9D7FEA",
+          md: "#9D7FEA",
           light: "#DACBFF",
         },
         gray: {
@@ -28,51 +28,51 @@ module.exports = {
         blue: "#0067CE",
         red: "#C44021",
       },
-                fontFamily: {
-            sans: [
-              "Noto Sans TC",
-              "ui-sans-serif",
-              "system-ui",
-              "-apple-system",
-              "BlinkMacSystemFont",
-              "Segoe UI",
-              "Roboto",
-              "Helvetica Neue",
-              "Arial",
-              "Noto Sans",
-              "sans-serif",
-              "Apple Color Emoji",
-              "Segoe UI Emoji",
-              "Segoe UI Symbol",
-              "Noto Color Emoji",
-            ],
-          },
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/aspect-ratio"),
-    ({ addComponents }) => {
-              addComponents({
-                ".container": {
-                  maxWidth: "100%",
-                  "@screen sm": {
-                    maxWidth: "540px",
-                  },
-                  "@screen md": {
-                    maxWidth: "768px",
-                  },
-                  "@screen lg": {
-                    maxWidth: "960px",
-                  },
-                  "@screen xl": {
-                    maxWidth: "1110px",
-                  },
-                },
-              });
+      fontFamily: {
+        sans: [
+          "Noto Sans TC",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "Noto Sans",
+          "sans-serif",
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol",
+          "Noto Color Emoji",
+        ],
+      },
+    },
+    variants: {
+      extend: {},
+    },
+    plugins: [
+      require("@tailwindcss/forms"),
+      require("@tailwindcss/typography"),
+      ({ addComponents }) => {
+        addComponents({
+          ".container": {
+            maxWidth: "100%",
+            "@screen sm": {
+              maxWidth: "540px",
             },
-  ],
+            "@screen md": {
+              maxWidth: "768px",
+            },
+            "@screen lg": {
+              maxWidth: "960px",
+            },
+            "@screen xl": {
+              maxWidth: "1110px",
+            },
+          },
+        });
+      },
+    ],
+  }
 };

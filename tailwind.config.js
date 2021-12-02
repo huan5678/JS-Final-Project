@@ -1,14 +1,19 @@
 module.exports = {
-  mode: 'jit',
   purge: {
     content: [
       './index.html',
-      './src/**/*.{vue,js,ts}',
+      './src/**/*.{vue,js,jsx,ts}',
     ],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
+      spacing: {
+        '7.5': '1.875rem',
+      },
       colors: {
         primary: {
           DEFAULT: '#6A33FF',
@@ -47,6 +52,9 @@ module.exports = {
           "Noto Color Emoji",
         ],
       },
+      fontSize: {
+        'h2': '1.75rem',
+      }
     },
     variants: {
       extend: {},

@@ -1,9 +1,13 @@
-import './src/style.css'
-
 import { render } from "preact";
-
-import App from "./components/App"
-
+import App from "./src/App"
 
 
-render(<App />, document.getElementById("app"));
+const Main = () => {
+  return (
+    <App />
+  );
+}
+
+render(
+  <Main />, document.getElementById("app")
+);

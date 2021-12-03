@@ -16,7 +16,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
-import { createContext} from 'preact';
+
+
+import { createContext } from 'preact';
 import { useState,useEffect,useContext } from 'preact/hooks';
 
 export const AuthContext = createContext();

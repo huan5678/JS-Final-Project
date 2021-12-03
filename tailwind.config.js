@@ -5,7 +5,6 @@ module.exports = {
       './src/**/*.{vue,js,jsx,ts}',
     ],
   },
-  darkMode: false, // or 'media' or 'class'
   theme: {
     container: {
       center: true,
@@ -25,6 +24,7 @@ module.exports = {
           DEFAULT: '#BFBFBF',
           dark: "#797979",
           light: "#F8F8F8",
+          border: '#b9b9b9',
         },
         secondary: {
           DEFAULT: '#818A91',
@@ -53,6 +53,7 @@ module.exports = {
         ],
       },
       fontSize: {
+        'h1': '2rem',
         'h2': '1.75rem',
       }
     },

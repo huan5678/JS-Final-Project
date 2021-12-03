@@ -1,6 +1,4 @@
 
-import { Link } from "preact-router/match";
-
 const Header = () => {
   return (
     <header class="container flex justify-between items-center">

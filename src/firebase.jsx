@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -17,23 +17,26 @@ const firebaseConfig = {
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-
-import { createContext } from 'preact';
-import { useState,useEffect,useContext } from 'preact/hooks';
+import { createContext } from "preact";
+import { useState, useEffect, useContext } from "preact/hooks";
 
 export const AuthContext = createContext();
 
-export const AuthContextProvider = props => {
+export const AuthContextProvider = (props) => {
   const [user, setUser] = useState();
   const [error, setError] = useState();
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), setUser, setError)
+    const unsubscribe = onAuthStateChanged(getAuth(), setUser, setError);
     return () => unsubscribe();
-  },[])
-  return <AuthContext.Provider value={{user, error}} {...props} />
-}
+  }, []);
+  return (
+    <AuthContext.Provider value={{ user, error }}>
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
 
 export const useAuthState = () => {
   const auth = useContext(AuthContext);
-  return {...auth, isAuthenticated: auth.user != null}
-}
+  return { ...auth, isAuthenticated: auth.user != null };
+};

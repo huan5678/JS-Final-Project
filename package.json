@@ -20,7 +20,10 @@
     "history": "^5.1.0",
     "postcss": "^8.4.4",
     "preact": "^10.6.2",
+    "preact-context": "^1.1.4",
     "preact-router": "^3.2.1",
+    "react-hook-form": "^7.20.5",
+    "react-modal": "^3.14.4",
     "swiper": "^7.3.1",
     "tailwindcss": "^3.0.0-alpha.2"
   }

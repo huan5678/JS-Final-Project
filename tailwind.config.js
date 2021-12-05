@@ -1,33 +1,35 @@
 module.exports = {
   purge: {
-    content: [
-      './index.html',
-      './src/**/*.{vue,js,jsx,ts}',
-    ],
+    content: ["./index.html", "./src/**/*.{vue,js,jsx,ts}"],
   },
   theme: {
     container: {
+      padding: "15px",
       center: true,
     },
     extend: {
       spacing: {
-        '7.5': '1.875rem',
+        7.5: "1.875rem",
+        18: "4.5rem",
+      },
+      borderWidth: {
+        "3": "3px",
       },
       colors: {
         primary: {
-          DEFAULT: '#6A33FF',
-          dark: '#301E5F',
+          DEFAULT: "#6A33FF",
+          dark: "#301E5F",
           md: "#9D7FEA",
           light: "#DACBFF",
         },
         gray: {
-          DEFAULT: '#BFBFBF',
+          DEFAULT: "#BFBFBF",
           dark: "#797979",
           light: "#F8F8F8",
-          border: '#b9b9b9',
+          border: "#b9b9b9",
         },
         secondary: {
-          DEFAULT: '#818A91',
+          DEFAULT: "#818A91",
           light: "#CED4DA",
         },
         blue: "#0067CE",
@@ -53,9 +55,9 @@ module.exports = {
         ],
       },
       fontSize: {
-        'h1': '2rem',
-        'h2': '1.75rem',
-      }
+        h1: "2rem",
+        h2: "1.75rem",
+      },
     },
     variants: {
       extend: {},
@@ -83,5 +85,5 @@ module.exports = {
         });
       },
     ],
-  }
+  },
 };

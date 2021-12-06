@@ -16,14 +16,31 @@ export function CartsList({
     [total, setTotal, finalTotal, setFinalTotal]
   );
 
+  const handleEditCart = useCallback(
+    (id, quantity) => {
+      console.log(id, quantity);
+      const data = {
+        data: {
+          id,
+          quantity: (+quantity),
+        },
+      };
+      FetchData({ target: "carts-patch", data })
+        .then((res) => {
+          console.log(res.data);
+          setCarts(res.data.carts);
+          setTotal(res.data.total);
+          setFinalTotal(res.data.finalTotal);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+    },[]);
+
   const handleCartsList = useCallback(
     (res) => {
-      console.log(res);
-      const newArr = res.data.carts.map((cart) => {
-        cart.isEditable = false;
-        return cart;
-      });
-      setCarts(newArr);
+      setCarts(res.data.carts);
       setTotal(res.data.total);
       setFinalTotal(res.data.finalTotal);
     },
@@ -90,7 +107,19 @@ export function CartsList({
                 </span>
                 NT${moneyFormat(cart.product.price)}
               </td>
-              <td class="text-center">{cart.quantity}</td>
+              <td class="text-center">
+                <div class="flex gap-3 justify-center items-center">
+                  <input
+                    class="border-none bg-transparent text-center w-1/2 focus:outline-none"
+                    type="number"
+                    min="1"
+                    value={cart.quantity}
+                    onBlur={(e) => {
+                      handleEditCart(cart.id, e.target.value);
+                    }}
+                  />
+                </div>
+              </td>
               <td class="text-center">
                 NT${moneyFormat(cart.product.price * cart.quantity)}
               </td>

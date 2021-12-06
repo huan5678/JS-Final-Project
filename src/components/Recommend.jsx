@@ -105,7 +105,7 @@ function RecommendCard({ props }) {
       <img src={props.productImg} class="w-24 object-fill" />
       <div class="flex flex-col p-3">
         <div class="flex gap-2 mb-2">
-          <img src={props.avatarImg} class="h-20 w-20 object-fill" />
+          <img src={props.avatarImg} class="h-10 w-10 object-fill" />
           <div class="flex flex-col">
             <h3>{props.userName}</h3>
             <p class="text-primary text-sm">{ props.productName}</p>

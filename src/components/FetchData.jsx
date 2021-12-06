@@ -35,9 +35,13 @@ const FetchData = (props) => {
     case "carts-get":
       return axios.get(cartUrl);
       break;
-    // 加入購物車 | 編輯購物車數量(購物車ID)
-    case "carts-post" || "cart-patch":
+    // 加入購物車
+    case "carts-post":
       return axios.post(cartUrl, props.data);
+      break;
+    // 編輯購物車數量(購物車ID)
+    case "carts-patch":
+      return axios.patch(cartUrl, props.data);
       break;
     // 清空購物車
     case "carts-deleteAll":

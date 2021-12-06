@@ -18,7 +18,7 @@
 }
 
 .link {
-  @apply block transition duration-300 ease-in-out hover:bg-primary hover:bg-opacity-70 hover:text-white
+  @apply block transition duration-300 ease-in-out hover:bg-primary hover:bg-opacity-70 hover:text-white;
 }
 
 .ReactModal__Overlay {
@@ -35,5 +35,5 @@
 }
 
 .form-control {
-  @apply text-secondary rounded border border-secondary-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent py-2 px-3 w-full
+  @apply text-secondary rounded border border-secondary-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent py-2 px-3 w-full;
 }

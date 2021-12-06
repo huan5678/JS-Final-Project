@@ -13,16 +13,16 @@ import product05 from "../images/productImage05.png";
 import product06 from "../images/productImage06.png";
 import product07 from "../images/productImage07.png";
 
-import user01 from "../images/Ellipse01.png"
-import user02 from "../images/Ellipse02.png"
-import user03 from "../images/Ellipse03.png"
-import user04 from "../images/Ellipse04.png"
-import user05 from "../images/Ellipse05.png"
-import user06 from "../images/Ellipse06.png"
-import user07 from "../images/Ellipse07.png"
-import user08 from "../images/Ellipse08.png"
-import user09 from "../images/Ellipse09.png"
-import user10 from "../images/Ellipse10.png"
+import user01 from "../images/Ellipse01.png";
+import user02 from "../images/Ellipse02.png";
+import user03 from "../images/Ellipse03.png";
+import user04 from "../images/Ellipse04.png";
+import user05 from "../images/Ellipse05.png";
+import user06 from "../images/Ellipse06.png";
+import user07 from "../images/Ellipse07.png";
+import user08 from "../images/Ellipse08.png";
+import user09 from "../images/Ellipse09.png";
+import user10 from "../images/Ellipse10.png";
 
 const recommendList = [
   {
@@ -101,11 +101,11 @@ SwiperCore.use([Autoplay,Grid]);
 
 function RecommendCard({ props }) {
   return (
-    <div class="bg-white flex min-w-[350px]">
-      <img src={props.productImg} class="h-24 w-24 object-fill" />
+    <div class="bg-white flex">
+      <img src={props.productImg} class="w-24 object-fill" />
       <div class="flex flex-col p-3">
         <div class="flex gap-2 mb-2">
-          <img src={props.avatarImg} class="h-10 w-10 object-fill" />
+          <img src={props.avatarImg} class="h-20 w-20 object-fill" />
           <div class="flex flex-col">
             <h3>{props.userName}</h3>
             <p class="text-primary text-sm">{ props.productName}</p>
@@ -123,7 +123,7 @@ export function Recommend() {
       <h2 class="text-h2 text-center text-white mb-8">好評推薦</h2>
       <div class="container">
         <Swiper
-          slidesPerView={2.5}
+          slidesPerView={2.2}
           slidesPerGroup={3}
           slidesPerColumn={2}
           grid={{

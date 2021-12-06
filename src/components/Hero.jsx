@@ -15,8 +15,14 @@ import heroImg03 from "../images/heroImage03.png";
 import heroImg04 from "../images/heroImage04.png";
 import heroImg05 from "../images/heroImage05.png";
 import heroImg06 from "../images/heroImage06.png";
+import heroImg07 from "../images/heroImage07.png";
+import heroImg08 from "../images/heroImage08.png";
+import heroImg09 from "../images/heroImage09.png";
+import heroImg10 from "../images/heroImage10.png";
 
 const Hero = () => {
+
+  const heroArr = [heroImg01, heroImg02, heroImg03, heroImg04, heroImg05, heroImg06, heroImg07, heroImg08, heroImg09, heroImg10];
 
   return (
     <section class="pt-8 pb-14 container">
@@ -28,24 +34,15 @@ const Hero = () => {
             disableOnInteraction: false,
           }}
         >
-          <SwiperSlide>
-            <img src={heroImg01} class="object-fill " />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={heroImg02} class="object-fill" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={heroImg03} class="object-fill" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={heroImg04} class="object-fill" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={heroImg05} class="object-fill" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={heroImg06} class="object-fill" />
-          </SwiperSlide>
+          {
+            heroArr.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <img src={item} class="object-fill " />
+                </SwiperSlide>
+              )
+            })
+          }
         </Swiper>
         <div class="absolute bottom-0 left-0 pb-12 pl-14 z-10">
           <h1 class="text-white text-h1">

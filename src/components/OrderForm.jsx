@@ -1,6 +1,31 @@
 import {useForm , Controller} from 'react-hook-form';
 import {useEffect, useState} from 'preact/hooks';
 import Select from "react-select";
+import Modal from "react-modal";
+
+const ModalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    width: "50%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 99999,
+  },
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    zIndex: 99999,
+  },
+};
+
+Modal.setAppElement("#app");
 
 const paymentData = [
   { value: '', label: '請選擇付款方式', isDisabled: true },
@@ -8,8 +33,17 @@ const paymentData = [
   { value: 'CreditCard', label: '信用卡' },
   { value: 'ApplePay' , label: 'Apple Pay' },
 ]
+
+
+
 export function OrderForm({ orderData, setOrderData }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [payment, setPayment] = useState(null);
+
+  const handleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
+
   const {
     register,
     handleSubmit,
@@ -17,7 +51,31 @@ export function OrderForm({ orderData, setOrderData }) {
     watch,
     formState: { errors },
   } = useForm({ mode: "onBlur", reValidateMode: "onChange" });
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    console.log(data);
+
+    const submitData = {
+      "data": {
+        "user": {
+          "name": data.userName,
+          "tel": data.userTel,
+          "email": data.userEmail,
+          "address": data.userAddress,
+          "payment": data.payment,
+        }
+      }
+    }
+
+    FetchData({ 'target': 'customer-orders', submitData }).then((res) => {
+      console.log(res);
+      handleModal();
+      setOrderData(res.data);
+    }).catch((err) => {
+      console.log(err);
+    })
+
+  }
   const watchAllFields = watch();
   useEffect(() => {
     const watchUserName = watch("userName");
@@ -44,13 +102,15 @@ export function OrderForm({ orderData, setOrderData }) {
               name="userName"
               control={control}
               rules={{ required: { value: true, message: "必填!" } }}
-              render={({ field }) => (
+              render={({ field, formState }) => (
                 <input
                   value={field.value}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
                   inputRef={field.ref}
-                  class="form-control"
+                  class={`form-control ${
+                    formState.isValid ? "ring-red ring-opacity-80" : ""
+                  }`}
                   placeholder="請輸入姓名"
                 />
               )}
@@ -82,7 +142,7 @@ export function OrderForm({ orderData, setOrderData }) {
                   onChange={field.onChange}
                   inputRef={field.ref}
                   maxLength="10"
-                  class="form-control"
+                  class={`form-control`}
                   placeholder="請輸入電話"
                 />
               )}
@@ -107,7 +167,7 @@ export function OrderForm({ orderData, setOrderData }) {
                   onBlur={field.onBlur}
                   onChange={field.onChange}
                   inputRef={field.ref}
-                  class="form-control"
+                  class={`form-control`}
                   placeholder="請輸入Email"
                 />
               )}
@@ -132,7 +192,7 @@ export function OrderForm({ orderData, setOrderData }) {
                   onBlur={field.onBlur} // notify when input is touched
                   onChange={field.onChange} // send value to hook form
                   inputRef={field.ref}
-                  class="form-control"
+                  class={`form-control`}
                   placeholder="請輸入寄送地址"
                 />
               )}
@@ -187,6 +247,35 @@ export function OrderForm({ orderData, setOrderData }) {
           </button>
         </div>
       </form>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={handleModal}
+        style={ModalStyle}
+        closeTimeoutMS={200}
+      >
+        <div class="flex flex-col items-center justify-center py-4 px-6 space-y-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="h-12 w-12 text-primary"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"
+            />
+          </svg>
+          <h2 class="text-xl text-center">已成功送出訂單</h2>
+          <p class="text-center text-primary-md">感謝您本次的下訂</p>
+          <button
+            type="button"
+            class="w-full bg-primary text-white grid place-content-center rounded-xl text-xl py-3 mb-2"
+            onClick={handleModal}
+          >
+            關閉
+          </button>
+        </div>
+      </Modal>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import FetchData from "./FetchData";
-import { useState, useMemo, useCallback } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 
 export function CartsList({
   carts,
@@ -8,57 +8,59 @@ export function CartsList({
   setTotal,
   finalTotal,
   setFinalTotal,
+  sendOrder,
+  setSendOrder,
+  setModalData,
+  handleModal,
 }) {
-  const moneyFormat = useCallback(
-    (num) => {
-      return Number(num.toFixed(1)).toLocaleString();
-    },
-    [total, setTotal, finalTotal, setFinalTotal]
-  );
+  const moneyFormat = (num) => {
+    return Number(num.toFixed(1)).toLocaleString();
+  };
 
-  const handleEditCart = useCallback(
-    (id, quantity) => {
-      console.log(id, quantity);
-      const data = {
-        data: {
-          id,
-          quantity: (+quantity),
-        },
-      };
-      FetchData({ target: "carts-patch", data })
-        .then((res) => {
-          console.log(res.data);
-          setCarts(res.data.carts);
-          setTotal(res.data.total);
-          setFinalTotal(res.data.finalTotal);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  const handleEditCart = (id, quantity) => {
+    console.log(id, quantity);
+    const data = {
+      data: {
+        id,
+        quantity: +quantity,
+      },
+    };
+    FetchData({ target: "carts-patch", data })
+      .then((res) => {
+        console.log(res.data);
+        setCarts(res.data.carts);
+        setTotal(res.data.total);
+        setFinalTotal(res.data.finalTotal);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
-    },[]);
+  const handleCartsList = (res) => {
+    setCarts(res.data.carts);
+    setTotal(res.data.total);
+    setFinalTotal(res.data.finalTotal);
+  };
 
-  const handleCartsList = useCallback(
-    (res) => {
-      setCarts(res.data.carts);
-      setTotal(res.data.total);
-      setFinalTotal(res.data.finalTotal);
-    },
-    [setCarts, setTotal, setFinalTotal]
-  );
-
-  const handleClearCarts = useCallback(() => {
+  const handleClearCarts = () => {
     FetchData({ target: "carts-deleteAll" })
       .then((res) => {
         console.log(res.data);
         handleCartsList(res);
+        setModalData({
+          target: 'cartsList',
+          content: res.data.message,
+          title: "",
+        });
+        handleModal();
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
-  const handleRemoveCartsItem = useCallback((cart) => {
+  const handleRemoveCartsItem = (cart) => {
     console.log(cart);
     const cartsId = cart.id;
     FetchData({ target: "carts-delete", cartsId })
@@ -69,13 +71,15 @@ export function CartsList({
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
-  useMemo(() => {
+  useEffect(() => {
     FetchData({ target: "carts-get" }).then((res) => {
       handleCartsList(res);
     });
-  }, []);
+    (sendOrder === true) ? setSendOrder(false) : null;
+
+  }, [setCarts, setTotal, setFinalTotal, sendOrder, setSendOrder]);
 
   return (
     <section class="bg-gray-light pt-12 pb-18">
@@ -120,14 +124,17 @@ export function CartsList({
                   />
                 </div>
               </td>
-              <td class="text-center">
+              <td class="text-right pr-12">
+                <span class="block line-through text-sm">
+                  NT${moneyFormat(cart.product.origin_price * cart.quantity)}
+                </span>
                 NT${moneyFormat(cart.product.price * cart.quantity)}
               </td>
               <td class="text-center">
                 <button class="" onClick={() => handleRemoveCartsItem(cart)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 transition duration-500 ease-out hover:text-red hover:scale-150"
+                    class="h-6 w-6 transition duration-500 ease-out hover:text-primary hover:scale-150"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -147,14 +154,21 @@ export function CartsList({
         <tfoot class="text-xl">
           <tr>
             <td colspan="3" class="py-5">
+              {carts.length > 0 ? (
               <button
-                class="rounded py-2 px-5 border border-black transition duration-300 ease-in-out hover:bg-red hover:border-transparent hover:text-white"
+                class="rounded py-2 px-5 border border-black transition duration-300 ease-in-out hover:bg-black hover:border-transparent hover:text-white"
                 onClick={() => handleClearCarts()}
               >
                 刪除全部品項
-              </button>
+                </button>
+              ) : (
+                  <p class="text-left pl-12 pt-3 text-primary">您的購物車是空的</p>
+              )}
             </td>
-            <td class="text-center">總金額</td>
+            <td class="text-center">
+              <span class="block line-through text-sm">原始總金額</span>
+              總金額
+            </td>
             <td class="text-center">
               <span class="block line-through text-sm">
                 NT${moneyFormat(total)}

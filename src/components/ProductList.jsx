@@ -1,37 +1,17 @@
 import FetchData from "./FetchData";
-import { useState, useMemo } from "preact/hooks";
-import Modal from "react-modal";
+import { useState, useEffect } from "preact/hooks";
 
 
-const ModalStyle = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    width: '50%',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 99999,
-  },
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    zIndex: 99999,
-  }
-}
-
-Modal.setAppElement('#app');
-
-const ProductCard = ({ product, setCarts, setTotal, setFinalTotal }) => {
+const ProductCard = ({
+  product,
+  setCarts,
+  setTotal,
+  setFinalTotal,
+  setModalData,
+  handleModal,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const handleModal = () => {
-    setModalIsOpen(!modalIsOpen);
-  };
+
 
   const handleAddCarts = () => {
     const data = {
@@ -44,6 +24,11 @@ const ProductCard = ({ product, setCarts, setTotal, setFinalTotal }) => {
       .then((res) => {
         console.log(res);
         console.log(res.data.carts[0].product.title + "加入購物車");
+        setModalData({
+          icon: "productList",
+          title: res.data.carts[0].product.title,
+          content: "成功加入購物車",
+        });
         handleModal();
         setCarts(res.data.carts);
         setTotal(res.data.total);
@@ -68,7 +53,6 @@ const ProductCard = ({ product, setCarts, setTotal, setFinalTotal }) => {
           <button
             type="button"
             class="w-full bg-black text-white grid place-content-center text-xl py-3 mb-2 transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:bg-primary-dark"
-            
           >
             加入購物車
           </button>
@@ -82,38 +66,6 @@ const ProductCard = ({ product, setCarts, setTotal, setFinalTotal }) => {
       <span class="absolute top-0 right-0 translate-x-1 translate-y-3 bg-black text-white text-xl py-2 px-6">
         新品
       </span>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={handleModal}
-        style={ModalStyle}
-        closeTimeoutMS={200}
-      >
-        <div class="flex flex-col items-center justify-center py-4 px-6 space-y-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-12 w-12 text-primary-md"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <h2 class="text-xl">{product.title}</h2>
-          <h3 class="text-2xl text-center">成功加入購物車</h3>
-          <button
-            type="button"
-            class="w-full bg-primary text-white grid place-content-center rounded-xl text-xl py-3 mb-2"
-            onClick={handleModal}
-          >
-            關閉
-          </button>
-        </div>
-      </Modal>
     </li>
   );
 };
@@ -128,6 +80,8 @@ export function ProductList({
   setCarts,
   setTotal,
   setFinalTotal,
+  setModalData,
+  handleModal,
 }) {
   const handleCategoryChange = (e) => {
     const category = e.target.value;
@@ -140,7 +94,7 @@ export function ProductList({
     });
     setFilterProducts(filterData);
   };
-  useMemo(() => {
+  useEffect(() => {
     const list = FetchData({ target: "products" });
     list.then((res) => {
       console.log(res.data.products);
@@ -176,6 +130,8 @@ export function ProductList({
                   setCarts={setCarts}
                   setTotal={setTotal}
                   setFinalTotal={setFinalTotal}
+                  setModalData={setModalData}
+                  handleModal={handleModal}
                 />
               );
             })
@@ -187,6 +143,8 @@ export function ProductList({
                   setCarts={setCarts}
                   setTotal={setTotal}
                   setFinalTotal={setFinalTotal}
+                  setModalData={setModalData}
+                  handleModal={handleModal}
                 />
               );
             })}

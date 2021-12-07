@@ -13,7 +13,6 @@ const App = ()=> {
   return (
     <AuthContextProvider>
       <Header />
-      <div className="bg-black h-10"></div>
       <Router history={createHashHistory()}>
         <Index title={"index"} path="/" />
         <Dashboard title={"dashboard"} path="/dashboard" />

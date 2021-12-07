@@ -1,19 +1,29 @@
+import { useState, useEffect } from 'preact/hooks';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      window.innerWidth > 768 ?
+        setIsMenuOpen(false): null
+    };
+    window.addEventListener('resize', handleResize);
+  }, []);
   return (
-    <header class="container flex justify-between items-center">
-      <h2 class="font-logo font-bold text-2xl">
-        <a href="/" class="py-4">
-          WOWOROOM
-        </a>
-      </h2>
-      <nav class="flex justify-between items-center">
-        <button class="link  py-6 px-6">
+    <div class="sticky top-0 z-20 bg-white">
+      <header class="container bg-white flex justify-between items-center">
+        <h2 class="font-logo font-bold text-2xl">
+          <a href="/" class="py-4">
+            WOWOROOM
+          </a>
+        </h2>
+        <button class="link py-6 px-6 lg:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 16 16"
             class="h-8 w-8"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <path
               fill-rule="evenodd"
@@ -21,27 +31,33 @@ const Header = () => {
             />
           </svg>
         </button>
-        <a className="link py-7 px-6" href="#">
-          床墊優勢
-        </a>
-
-        <a className="link py-7 px-6" href="#">
-          好評推薦
-        </a>
-
-        <a className="link py-7 px-6" href="#">
-          運送方式
-        </a>
-
-        <a className="link py-7 px-6 text-primary" href="#">
-          立即訂購
-        </a>
-
-        <a className="link py-7 px-6" href="/dashboard">
-          管理介面
-        </a>
-      </nav>
-    </header>
+        <nav
+          class={`${
+            isMenuOpen
+              ? "absolute top-0 left-0 w-full bg-gray-light bg-opacity-75 backdrop-blur-[2px] rounded-b-xl mt-20 h-auto visible opacity-100"
+              : "invisible h-0 -translate-y-96 opacity-0 absolute"
+          } lg:top-auto lg:left-auto lg:bg-opacity-100 lg:bg-transparent lg:flex lg:items-center
+          lg:h-auto lg:translate-y-0 lg:opacity-100 lg:visible lg:static transition-all duration-300 ease-in-out`}
+        >
+          <a className="link w-full lg:w-auto py-7 px-6" href="#hero">
+            床墊優勢
+          </a>
+          <a className="link w-full lg:w-auto py-7 px-6" href="#recommend">
+            好評推薦
+          </a>
+          <a className="link w-full lg:w-auto py-7 px-6" href="#shipping">
+            運送方式
+          </a>
+          <a className="link w-full lg:w-auto py-7 px-6 text-primary" href="#order">
+            立即訂購
+          </a>
+          <a className="link w-full lg:w-auto py-7 px-6" href="/dashboard">
+            管理介面
+          </a>
+        </nav>
+      </header>
+      <div className="bg-black h-10" />
+    </div>
   );
 };
 

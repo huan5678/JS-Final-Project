@@ -102,16 +102,16 @@ SwiperCore.use([Autoplay,Grid]);
 function RecommendCard({ props }) {
   return (
     <div class="bg-white flex">
-      <img src={props.productImg} class="w-24 object-fill" />
-      <div class="flex flex-col p-3">
+      <img src={props.productImg} class="md:w-24 object-fill" />
+      <div class="flex flex-col p-9 md:p-3">
         <div class="flex gap-2 mb-2">
-          <img src={props.avatarImg} class="h-10 w-10 object-fill" />
+          <img src={props.avatarImg} class="h-28 w-28 md:h-10 md:w-10 object-fill" />
           <div class="flex flex-col">
-            <h3>{props.userName}</h3>
-            <p class="text-primary text-sm">{ props.productName}</p>
+            <h3 class="text-xl md:text-base">{props.userName}</h3>
+            <p class="text-primary text-lg md:text-sm">{ props.productName}</p>
           </div>
         </div>
-        <p>{ props.recommendText}</p>
+        <p class="text-2xl md:text-base">{ props.recommendText}</p>
       </div>
     </div>
   );
@@ -119,13 +119,22 @@ function RecommendCard({ props }) {
 
 export function Recommend() {
   return (
-    <section class="bg-primary-dark pt-14 pb-20">
+    <section class="bg-primary-dark pt-14 pb-20" id="recommend">
       <h2 class="text-h2 text-center text-white mb-8">好評推薦</h2>
       <div class="container">
         <Swiper
-          slidesPerView={2.2}
-          slidesPerGroup={3}
-          slidesPerColumn={2}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              slidesPerGroup: 1,
+              slidesPerColumn: 1,
+            },
+            768: {
+              slidesPerView: 2.2,
+              slidesPerGroup: 3,
+              slidesPerColumn: 2,
+            },
+          }}
           grid={{
             rows: 2,
             fill: 'row'

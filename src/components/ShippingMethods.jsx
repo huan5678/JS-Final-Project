@@ -1,6 +1,6 @@
 export function ShippingMethods() {
   return (
-    <section class="container pt-8 mb-18 space-y-8">
+    <section class="container pt-8 mb-18 space-y-8" id="shipping">
       <h2 class="text-h2 text-center">運送方式</h2>
       <div class="flex justify-center items-center">
         <div class="text-center">

@@ -25,7 +25,7 @@ const Hero = () => {
   const heroArr = [heroImg01, heroImg02, heroImg03, heroImg04, heroImg05, heroImg06, heroImg07, heroImg08, heroImg09, heroImg10];
 
   return (
-    <section class="pt-8 pb-14 container">
+    <section class="pt-8 pb-14 container" id="hero">
       <div class="relative mb-14">
         <Swiper
           loop

@@ -6,16 +6,18 @@ import './style.css';
 
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
-
 import Header from "./components/Header";
 
-const App = ()=> {
+
+const App = () => {
+  const [target, setTarget] = useState(null);
+
   return (
     <AuthContextProvider>
-      <Header />
+      <Header target={target} />
       <Router history={createHashHistory()}>
-        <Index title={"index"} path="/" />
-        <Dashboard title={"dashboard"} path="/dashboard" />
+        <Index setTarget={setTarget} path="/" />
+        <Dashboard setTarget={setTarget} path="/dashboard" />
       </Router>
     </AuthContextProvider>
   );

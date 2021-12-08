@@ -10,10 +10,11 @@ module.exports = {
     extend: {
       spacing: {
         7.5: "1.875rem",
+        15: "3.75rem",
         18: "4.5rem",
       },
       borderWidth: {
-        "3": "3px",
+        3: "3px",
       },
       colors: {
         primary: {
@@ -33,7 +34,10 @@ module.exports = {
           light: "#CED4DA",
         },
         blue: "#0067CE",
-        red: "#C44021",
+        red: {
+          DEFAULT: "#C44021",
+          dark: "#9D3F27",
+        },
       },
       fontFamily: {
         sans: [

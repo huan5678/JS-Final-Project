@@ -10,12 +10,12 @@ import Header from "./components/Header";
 
 
 const App = () => {
-  const [target, setTarget] = useState(null);
+  const [target, setTarget] = useState("Index");
 
   return (
     <AuthContextProvider>
-      <Header target={target} />
-      <Router history={createHashHistory()}>
+      <Header target={target} setTarget={setTarget} />
+      <Router >
         <Index setTarget={setTarget} path="/" />
         <Dashboard setTarget={setTarget} path="/dashboard" />
       </Router>

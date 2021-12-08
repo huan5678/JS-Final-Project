@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, } from "preact/hooks";
 import Modal from "react-modal";
 
 import Hero from "../components/Hero";
@@ -70,7 +70,9 @@ const icon = (target) => {
   }
 }
 
-const Index = () => {
+const Index = ({setTarget}) => {
+  setTarget("Index");
+  
   // 產品列表使用狀態
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -88,8 +90,9 @@ const Index = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const handleModal = () => {
-      setModalIsOpen(!modalIsOpen);
-    };
+    setModalIsOpen(!modalIsOpen);
+  };
+
 
   return (
     <main>

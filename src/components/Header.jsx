@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 
-const Header = () => {
+const Header = ({ target,setTarget }) => {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -13,7 +14,7 @@ const Header = () => {
     <div class="sticky top-0 z-20 bg-white">
       <header class="container bg-white flex justify-between items-center">
         <h2 class="font-logo font-bold text-2xl">
-          <a href="/" class="py-4">
+          <a href="/" class="py-4" onClick={()=>setTarget("Index")}>
             WOWOROOM
           </a>
         </h2>
@@ -39,21 +40,40 @@ const Header = () => {
           } lg:top-auto lg:left-auto lg:bg-opacity-100 lg:bg-transparent lg:flex lg:items-center
           lg:h-auto lg:translate-y-0 lg:opacity-100 lg:visible lg:static transition-all duration-300 ease-in-out`}
         >
-          <a className="link w-full lg:w-auto py-7 px-6" href="#hero">
-            床墊優勢
-          </a>
-          <a className="link w-full lg:w-auto py-7 px-6" href="#recommend">
-            好評推薦
-          </a>
-          <a className="link w-full lg:w-auto py-7 px-6" href="#shipping">
-            運送方式
-          </a>
-          <a className="link w-full lg:w-auto py-7 px-6 text-primary" href="#order">
-            立即訂購
-          </a>
-          <a className="link w-full lg:w-auto py-7 px-6" href="/dashboard">
-            管理介面
-          </a>
+          {target === "Index" ? (
+            <>
+              <a className="link w-full lg:w-auto py-7 px-6" href="#hero">
+                床墊優勢
+              </a>
+              <a className="link w-full lg:w-auto py-7 px-6" href="#recommend">
+                好評推薦
+              </a>
+              <a className="link w-full lg:w-auto py-7 px-6" href="#shipping">
+                運送方式
+              </a>
+              <a
+                className="link w-full lg:w-auto py-7 px-6 text-primary"
+                href="#order"
+              >
+                立即訂購
+              </a>
+              <a className="link w-full lg:w-auto py-7 px-6" href="/dashboard" onClick={() => setTarget("Dashboard")}>
+                管理介面
+              </a>
+            </>
+          ) : target === "Dashboard" ? (
+            <>
+              <a className="link w-full lg:w-auto py-7 px-6" href="">
+                後台管理
+              </a>
+              <a
+                className="link w-full lg:w-auto py-7 px-6 text-primary"
+                href=""
+              >
+                管理者登入
+              </a>
+            </>
+          ): <></>}
         </nav>
       </header>
       <div className="bg-black h-10" />

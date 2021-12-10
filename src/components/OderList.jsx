@@ -1,27 +1,12 @@
-import { useEffect } from 'preact/hooks';
+import { useEffect,useState } from 'preact/hooks';
 import FetchData from "./FetchData";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ["1", "2", "3", "4"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [3, 5, 2, 3],
-      backgroundColor: ["#DACBFFCC", "#9D7FEACC", "#5434A7CC", "#301E5FCC"],
-      borderColor: ["#DACBFF", "#9D7FEA", "#5434A7", "#301E5F"],
-      borderWidth: 1,
-    },
-  ],
-};
-
-const OderList = ({ ordersList, setOrdersList }) => {
+const OderList = ({ ordersList, setOrdersList, pieFilter, setPieFilter }) => {
   const handleOrderList = (res) => {
     setOrdersList(res.data.orders);
   };
+
 
   useEffect(() => {
     FetchData({ target: "admin-orders" }).then((res) => {
@@ -30,12 +15,55 @@ const OderList = ({ ordersList, setOrdersList }) => {
     });
   }, [setOrdersList]);
 
+  const handleOrderStatusChange = (id,paid) => {
+    FetchData({
+      target: "admin-put", data: {
+        data: {
+          id,
+          paid: !paid
+        }
+      }
+    }).then((res) => {
+      handleOrderList(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  const handleDeleteOrder = (ordersId) => {
+    FetchData({
+      target: "admin-delete", ordersId
+    }).then((res) => {
+      handleOrderList(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  const handlePieFilter = () => {
+    let filter =
+      pieFilter === "全產品類別營收比重"
+        ? "全品項營收比重"
+        : pieFilter === "全品項營收比重"
+        ? "全產品類別營收比重"
+          : null;
+    console.log(filter);
+    setPieFilter(filter);
+  }
+
   return (
     <section class="container">
-      <Pie data={data} width={50} height={50}  />
-      <div class="flex flex-wrap space-y-3">
+      <div class="flex justify-between flex-wrap gap-3 pb-32">
         <button
-          class="ml-auto rounded py-2 px-5 border border-black transition duration-300 ease-in-out hover:bg-black hover:border-transparent hover:text-white"
+          type="button"
+          class="rounded mr-4 py-2 px-5 border border-primary text-primary transition duration-300 ease-in-out hover:bg-primary hover:border-transparent hover:text-white"
+          onClick={() => handlePieFilter()}
+        >
+          切換圓餅圖項目
+        </button>
+        <button
+          type="button"
+          class="rounded py-2 px-5 border border-red text-red transition duration-300 ease-in-out hover:bg-red hover:border-transparent hover:text-white"
           onClick={() => handleClearOrders()}
         >
           清除全部訂單
@@ -97,7 +125,14 @@ const OderList = ({ ordersList, setOrdersList }) => {
             <tbody>
               {ordersList != undefined && ordersList.length > 0 ? (
                 ordersList.map((order) => (
-                  <tr class=" whitespace-nowrap" key={order.id}>
+                  <tr
+                    class={`whitespace-nowrap ${
+                      order.paid === true
+                        ? "text-gray-light bg-primary-md bg-opacity-60"
+                        : ""
+                    }`}
+                    key={order.id}
+                  >
                     <th scope="row" class="border border-secondary px-4 py-3">
                       {order.id}
                     </th>
@@ -123,15 +158,20 @@ const OderList = ({ ordersList, setOrdersList }) => {
                       {new Date(order.createdAt * 1000).getUTCDate()}
                     </td>
                     <td
-                      class="border border-secondary px-4 py-3 cursor-pointer text-blue underline"
-                      onClick={() => handleOrderStatusChange()}
+                      class={`border border-secondary px-4 py-3 cursor-pointer  underline ${
+                        order.paid === true ? "text-gray-light" : "text-blue"
+                      }`}
+                      onClick={() =>
+                        handleOrderStatusChange(order.id, order.paid)
+                      }
                     >
                       {order.paid ? "已處理" : "未處理"}
                     </td>
                     <td class="border border-secondary px-4 py-3">
                       <button
                         type="button"
-                        class="bg-red hover:bg-red-dark text-white"
+                        class="bg-red hover:bg-red-dark text-white py-2 px-4 rounded"
+                        onClick={() => handleDeleteOrder(order.id)}
                       >
                         刪除
                       </button>
@@ -140,7 +180,7 @@ const OderList = ({ ordersList, setOrdersList }) => {
                 ))
               ) : (
                 <tr>
-                  <td colspan="9"></td>
+                  <td colspan="9">目前無任何訂單資料</td>
                 </tr>
               )}
             </tbody>

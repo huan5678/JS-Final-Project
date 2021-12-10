@@ -10,7 +10,7 @@ import Header from "./components/Header";
 
 
 const App = () => {
-  const [target, setTarget] = useState("Index");
+  const [target, setTarget] = useState(null);
 
   return (
     <AuthContextProvider>

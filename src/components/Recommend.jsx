@@ -101,17 +101,17 @@ SwiperCore.use([Autoplay,Grid]);
 
 function RecommendCard({ props }) {
   return (
-    <div class="bg-white flex">
-      <img src={props.productImg} class="md:w-24 object-fill" />
-      <div class="flex flex-col p-9 md:p-3">
-        <div class="flex gap-2 mb-2">
-          <img src={props.avatarImg} class="h-28 w-28 md:h-10 md:w-10 object-fill" />
-          <div class="flex flex-col">
-            <h3 class="text-xl md:text-base">{props.userName}</h3>
-            <p class="text-primary text-lg md:text-sm">{ props.productName}</p>
+    <div className="bg-white flex">
+      <img src={props.productImg} className="md:w-24 object-fill" />
+      <div className="flex flex-col p-9 md:p-3">
+        <div className="flex gap-2 mb-2">
+          <img src={props.avatarImg} className="h-28 w-28 md:h-10 md:w-10 object-fill" />
+          <div className="flex flex-col">
+            <h3 className="text-xl md:text-base">{props.userName}</h3>
+            <p className="text-primary text-lg md:text-sm">{ props.productName}</p>
           </div>
         </div>
-        <p class="text-2xl md:text-base">{ props.recommendText}</p>
+        <p className="text-2xl md:text-base">{ props.recommendText}</p>
       </div>
     </div>
   );
@@ -119,9 +119,9 @@ function RecommendCard({ props }) {
 
 export function Recommend() {
   return (
-    <section class="bg-primary-dark pt-14 pb-20" id="recommend">
-      <h2 class="text-h2 text-center text-white mb-8">好評推薦</h2>
-      <div class="container">
+    <section className="bg-primary-dark pt-14 pb-20" id="recommend">
+      <h2 className="text-h2 text-center text-white mb-8">好評推薦</h2>
+      <div className="container">
         <Swiper
           breakpoints={{
             640: {

@@ -1,6 +1,10 @@
 // Import the functions you need from the SDKs you need
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { useState, useEffect, useContext, createContext } from "react";
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,12 +21,15 @@ const firebaseConfig = {
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-import { createContext } from "preact";
-import { useState, useEffect, useContext } from "preact/hooks";
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth();
+export default app;
+
+
 
 export const AuthContext = createContext();
 
-export const AuthContextProvider = (props) => {
+export const AuthContextProvider = props => {
   const [user, setUser] = useState();
   const [error, setError] = useState();
   useEffect(() => {
@@ -30,9 +37,7 @@ export const AuthContextProvider = (props) => {
     return () => unsubscribe();
   }, []);
   return (
-    <AuthContext.Provider value={{ user, error }}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, error }} {...props} />
   );
 };
 

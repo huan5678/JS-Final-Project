@@ -1,5 +1,5 @@
 import FetchData from "./FetchData";
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "react";
 
 
 const ProductCard = ({
@@ -40,30 +40,30 @@ const ProductCard = ({
   };
 
   return (
-    <li class="relative flex flex-col">
+    <li className="relative flex flex-col">
       <div className="group" onClick={(product) => handleAddCarts(product)}>
-        <div class="overflow-clip">
+        <div className="overflow-clip">
           <img
             src={product.images}
             alt={product.title}
-            class="w-full object-cover transition-all duration-700 ease-out group-hover:scale-110"
+            className="w-full object-cover transition-all duration-700 ease-out group-hover:scale-110"
           />
         </div>
-        <div class="overflow-clip">
+        <div className="overflow-clip">
           <button
             type="button"
-            class="w-full bg-black text-white grid place-content-center text-xl py-3 mb-2 transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:bg-primary-dark"
+            className="w-full bg-black text-white grid place-content-center text-xl py-3 mb-2 transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:bg-primary-dark"
           >
             加入購物車
           </button>
         </div>
       </div>
-      <h2 class="text-xl">{product.title}</h2>
-      <h3 class="text-h2 mt-auto">
-        <span class="block text-xl line-through">{product.origin_price}</span>
+      <h2 className="text-xl">{product.title}</h2>
+      <h3 className="text-h2 mt-auto">
+        <span className="block text-xl line-through">{product.origin_price}</span>
         {product.price}
       </h3>
-      <span class="absolute top-0 right-0 translate-x-1 translate-y-3 bg-black text-white text-xl py-2 px-6">
+      <span className="absolute top-0 right-0 translate-x-1 translate-y-3 bg-black text-white text-xl py-2 px-6">
         新品
       </span>
     </li>
@@ -108,19 +108,24 @@ export function ProductList({
   }, []);
 
   return (
-    <section class="container mb-14">
+    <section className="container mb-14">
       <select
-        class="border rounded py-2 px-3 w-3/12 mb-8"
+        className="border rounded py-2 px-3 w-3/12 mb-8"
         onChange={(e) => handleCategoryChange(e)}
+        defaultValue=""
       >
-        <option value="All" selected>
+        <option value="All">
           全部
         </option>
         {categories.map((category) => {
-          return <option value={category}>{category}</option>;
+          return (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          );
         })}
       </select>
-      <ul class="grid md:grid-cols-3 lg:grid-cols-4 place-content-stretch align-items-stretch gap-[30px]">
+      <ul className="grid md:grid-cols-3 lg:grid-cols-4 place-content-stretch align-items-stretch gap-[30px]">
         {filterProducts.length > 0
           ? filterProducts.map((product) => {
               return (

@@ -25,8 +25,8 @@ const Hero = () => {
   const heroArr = [heroImg01, heroImg02, heroImg03, heroImg04, heroImg05, heroImg06, heroImg07, heroImg08, heroImg09, heroImg10];
 
   return (
-    <section class="pt-8 pb-14 container" id="hero">
-      <div class="relative mb-14">
+    <section className="pt-8 pb-14 container" id="hero">
+      <div className="relative mb-14">
         <Swiper
           loop
           autoplay={{
@@ -38,31 +38,31 @@ const Hero = () => {
             heroArr.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <img src={item} class="object-fill " />
+                  <img src={item} className="object-fill " />
                 </SwiperSlide>
               )
             })
           }
         </Swiper>
-        <div class="absolute bottom-0 left-0 pb-12 pl-14 z-10">
-          <h1 class="text-white text-h1">
+        <div className="absolute bottom-0 left-0 pb-12 pl-14 z-10">
+          <h1 className="text-white text-h1">
             窩窩家居
             <br /> 跟您一起品味生活
           </h1>
         </div>
       </div>
-      <h2 class="text-center text-h2 mb-7">床墊優勢</h2>
-      <ul class="flex gap-7.5 text-center">
-        <li class="space-y-2">
-          <img class="bg-gray" src={banner01} alt="" />
+      <h2 className="text-center text-h2 mb-7">床墊優勢</h2>
+      <ul className="flex gap-7.5 text-center">
+        <li className="space-y-2">
+          <img className="bg-gray" src={banner01} alt="" />
           <p>原木料環保</p>
         </li>
-        <li class="space-y-2">
-          <img class="bg-gray" src={banner02} alt="" />
+        <li className="space-y-2">
+          <img className="bg-gray" src={banner02} alt="" />
           <p>好收納</p>
         </li>
-        <li class="space-y-2">
-          <img class="bg-gray" src={banner03} alt="" />
+        <li className="space-y-2">
+          <img className="bg-gray" src={banner03} alt="" />
           <p>好組裝</p>
         </li>
       </ul>

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = ({ target,setTarget }) => {
 
@@ -11,29 +12,29 @@ const Header = ({ target,setTarget }) => {
     window.addEventListener('resize', handleResize);
   }, []);
   return (
-    <div class="sticky top-0 z-20 bg-white">
-      <header class="container bg-white flex justify-between items-center">
-        <h2 class="font-logo font-bold text-2xl">
-          <a href="/" class="py-4" onClick={()=>setTarget("Index")}>
+    <div className="sticky top-0 z-20 bg-white">
+      <header className="container bg-white flex justify-between items-center">
+        <h2 className="font-logo font-bold text-2xl">
+          <a href="/" className="py-4" onClick={()=>setTarget("Index")}>
             WOWOROOM
           </a>
         </h2>
-        <button class="link py-6 px-6 lg:hidden">
+        <button className="link py-6 px-6 lg:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 16 16"
-            class="h-8 w-8"
+            className="h-8 w-8"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
             />
           </svg>
         </button>
         <nav
-          class={`${
+          className={`${
             isMenuOpen
               ? "absolute top-0 left-0 w-full bg-gray-light bg-opacity-75 backdrop-blur-[2px] rounded-b-xl mt-20 h-auto visible opacity-100"
               : "invisible h-0 -translate-y-96 opacity-0 absolute"

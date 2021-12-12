@@ -1,6 +1,6 @@
 import FetchData from "./FetchData";
 import { useForm, Controller } from 'react-hook-form';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useState} from 'react';
 import Select from "react-select";
 
 
@@ -77,18 +77,18 @@ export function OrderForm({
     // const formData = watch((value, { name, type }) => console.log(value, name, type));
   }, [watch]);
   return (
-    <section class="container pt-14 pb-20" id="order">
-      <h2 class="text-center text-h2 mb-8">填寫預訂資料</h2>
+    <section className="container pt-14 pb-20" id="order">
+      <h2 className="text-center text-h2 mb-8">填寫預訂資料</h2>
       <form
         action=""
-        class="space-y-5 md:w-1/2 mx-auto"
+        className="space-y-5 md:w-1/2 mx-auto"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label class="block mb-2" htmlFor="userName">
+          <label className="block mb-2" htmlFor="userName">
             姓名
           </label>
-          <div class="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <Controller
               name="userName"
               control={control}
@@ -98,8 +98,8 @@ export function OrderForm({
                   value={field.value}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
-                  inputRef={field.ref}
-                  class={`form-control ${
+                  ref={field.ref}
+                  className={`form-control ${
                     formState.isValid ? "ring-red ring-opacity-80" : ""
                   }`}
                   placeholder="請輸入姓名"
@@ -107,15 +107,15 @@ export function OrderForm({
               )}
             />
             {errors.userName && (
-              <span class="text-red flex-none">{errors.userName.message}</span>
+              <span className="text-red flex-none">{errors.userName.message}</span>
             )}
           </div>
         </div>
         <div>
-          <label class="block mb-2" htmlFor="userTel">
+          <label className="block mb-2" htmlFor="userTel">
             電話
           </label>
-          <div class="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <Controller
               name="userTel"
               control={control}
@@ -131,23 +131,23 @@ export function OrderForm({
                   value={field.value}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
-                  inputRef={field.ref}
+                  ref={field.ref}
                   maxLength="10"
-                  class={`form-control`}
+                  className={`form-control`}
                   placeholder="請輸入電話"
                 />
               )}
             />
             {errors.userTel && (
-              <span class="text-red flex-none">{errors.userTel.message}</span>
+              <span className="text-red flex-none">{errors.userTel.message}</span>
             )}
           </div>
         </div>
         <div>
-          <label class="block mb-2" htmlFor="userEmail">
+          <label className="block mb-2" htmlFor="userEmail">
             Email
           </label>
-          <div class="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <Controller
               name="userEmail"
               control={control}
@@ -157,22 +157,22 @@ export function OrderForm({
                   value={field.value}
                   onBlur={field.onBlur}
                   onChange={field.onChange}
-                  inputRef={field.ref}
-                  class={`form-control`}
+                  ref={field.ref}
+                  className={`form-control`}
                   placeholder="請輸入Email"
                 />
               )}
             />
             {errors.userEmail && (
-              <span class="text-red flex-none">{errors.userEmail.message}</span>
+              <span className="text-red flex-none">{errors.userEmail.message}</span>
             )}
           </div>
         </div>
         <div>
-          <label class="block mb-2" htmlFor="userAddress">
+          <label className="block mb-2" htmlFor="userAddress">
             寄送地址
           </label>
-          <div class="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <Controller
               name="userAddress"
               control={control}
@@ -182,24 +182,24 @@ export function OrderForm({
                   value={field.value}
                   onBlur={field.onBlur} // notify when input is touched
                   onChange={field.onChange} // send value to hook form
-                  inputRef={field.ref}
-                  class={`form-control`}
+                  ref={field.ref}
+                  className={`form-control`}
                   placeholder="請輸入寄送地址"
                 />
               )}
             />
             {errors.userAddress && (
-              <span class="text-red flex-none">
+              <span className="text-red flex-none">
                 {errors.userAddress.message}
               </span>
             )}
           </div>
         </div>
         <div>
-          <label class="block mb-2" htmlFor="payment">
+          <label className="block mb-2" htmlFor="payment">
             付款方式
           </label>
-          <div class="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <Controller
               name="payment"
               control={control}
@@ -210,7 +210,7 @@ export function OrderForm({
                   onBlur={field.onBlur}
                   onChange={field.onChange}
                   ref={field.ref}
-                  className="w-full"
+                  classNameName="w-full"
                   theme={(theme) => ({
                     ...theme,
                     colors: {
@@ -225,14 +225,14 @@ export function OrderForm({
               )}
             />
             {errors.payment && (
-              <span class="text-red flex-none">{errors.payment.message}</span>
+              <span className="text-red flex-none">{errors.payment.message}</span>
             )}
           </div>
         </div>
-        <div class="pt-12">
+        <div className="pt-12">
           <button
             type="submit"
-            class="w-10/12 rounded bg-black text-white grid place-content-center text-xl py-3 mx-auto transition duration-300 ease-in-out hover:bg-primary-dark"
+            className="w-10/12 rounded bg-black text-white grid place-content-center text-xl py-3 mx-auto transition duration-300 ease-in-out hover:bg-primary-dark"
           >
             送出預訂資料
           </button>

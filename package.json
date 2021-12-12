@@ -1,14 +1,10 @@
 {
-  "name": "final-project",
+  "name": "finalr18",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "@preact/preset-vite": "^2.1.5",
-    "vite": "^2.6.4"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.3.0",
@@ -21,14 +17,20 @@
     "firebase": "^9.5.0",
     "history": "^5.1.0",
     "postcss": "^8.4.4",
-    "preact": "^10.6.2",
-    "preact-context": "^1.1.4",
-    "preact-router": "^3.2.1",
+    "react": "^18.0.0-rc.0-next-3b3daf557-20211210",
     "react-chartjs-2": "^4.0.0",
+    "react-dom": "^18.0.0-rc.0-next-3b3daf557-20211210",
+    "react-google-button": "^0.7.2",
     "react-hook-form": "^7.20.5",
     "react-modal": "^3.14.4",
+    "react-router": "^6.1.1",
+    "react-router-dom": "6",
     "react-select": "^5.2.1",
     "swiper": "^7.3.1",
     "tailwindcss": "^3.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^1.0.7",
+    "vite": "^2.7.0"
   }
 }

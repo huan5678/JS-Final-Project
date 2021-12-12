@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "react";
 import Modal from "react-modal";
 
 import Hero from "../components/Hero";
@@ -38,15 +38,15 @@ const icon = (target) => {
     case "productList":
       return <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-12 w-12 text-primary-md"
+        className="h-12 w-12 text-primary-md"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
@@ -58,11 +58,11 @@ const icon = (target) => {
       return <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
-        class="h-12 w-12 text-primary"
+        className="h-12 w-12 text-primary"
         viewBox="0 0 16 16"
       >
         <path
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"
         />
       </svg>
@@ -139,13 +139,13 @@ const Index = ({ setTarget }) => {
         style={ModalStyle}
         closeTimeoutMS={200}
       >
-        <div class="flex flex-col items-center justify-center py-4 px-6 space-y-4">
+        <div className="flex flex-col items-center justify-center py-4 px-6 space-y-4">
           {icon(modalData.icon)}
-          <h2 class="text-xl text-center">{modalData.title}</h2>
-          <p class="text-center text-primary-md">{modalData.content}</p>
+          <h2 className="text-xl text-center">{modalData.title}</h2>
+          <p className="text-center text-primary-md">{modalData.content}</p>
           <button
             type="button"
-            class="w-full bg-primary text-white grid place-content-center rounded-xl text-xl py-3 mb-2"
+            className="w-full bg-primary text-white grid place-content-center rounded-xl text-xl py-3 mb-2"
             onClick={handleModal}
           >
             關閉

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const apiPath = "woworoomprj";
-const apiKey = "Dvs17H4tgxR1Syf6vuEyCQ5Shsg1";
+const apiPath = import.meta.env.API_PATH;
+const apiKey = import.meta.env.API_KEY;
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1";
 
 const productsUrl =

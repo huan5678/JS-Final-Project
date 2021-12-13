@@ -10,8 +10,6 @@ const ProductCard = ({
   setModalData,
   handleModal,
 }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
 
   const handleAddCarts = () => {
     const data = {
@@ -22,8 +20,8 @@ const ProductCard = ({
     };
     FetchData({ target: "carts-post", data })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.carts[0].product.title + "加入購物車");
+        // console.log(res);
+        // console.log(res.data.carts[0].product.title + "加入購物車");
         setModalData({
           icon: "productList",
           title: res.data.carts[0].product.title,
@@ -97,7 +95,7 @@ export function ProductList({
   useEffect(() => {
     const list = FetchData({ target: "products" });
     list.then((res) => {
-      console.log(res.data.products);
+      // console.log(res.data.products);
       setProducts(res.data.products);
       let data = res.data.products;
       let categories = data.map((item) => item.category);

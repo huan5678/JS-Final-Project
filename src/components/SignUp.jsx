@@ -1,106 +1,105 @@
-import { useCallback } from "react";
-import {
-  getAuth,
-  signOut,
-  createUserWithEmailAndPassword,
-  deleteUser,
-} from "firebase/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUserAuth } from '../context/UserAuthContext';
 
-const SignUp = ({ handleToast }) => {
-  
-  const handleCreateSubmit = useCallback(async (e) => {
+const SignUp = ({ setLoginStatus }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { signUp, handleToast } = useUserAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const { email, password } = e.target.elements;
-    const auth = getAuth();
+    setError("");
     try {
-      await createUserWithEmailAndPassword(
-        auth,
-        email.value,
-        password.value
-      ).then((user) => {
-        console.log(user);
-        handleToast({
-          message: "成功註冊帳號!",
-          option: { theme: "colored", icon: "😄" },
-          status: "warning",
-        });
-      });
-    } catch (e) {
-      alert(e.message);
+      await signUp(email, password);
+            handleToast({
+              message: "成功註冊帳號!",
+              option: { theme: "colored", icon: "😄" },
+              status: "warning",
+            });
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+      // console.log(err);
     }
-  }, []);
-
-  const handleDeleteSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    const auth = getAuth();
-    const user = auth.currentUser;
-    console.log(auth);
-    console.log(user);
-    const { email } = e.target.elements;
-    console.log(email.value);
-    console.log();
-    // try {
-    //   await deleteUser(email.value).then((res) => {
-    //     console.log(res);
-    //   })
-    // } catch (e) {
-    //   alert(e.message);
-    // }
-  }, []);
-
-  const handleLogout = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        console.log("logged out");
-        handleToast({
-          message: "使用者登出!",
-          option: { theme: "colored", icon: "👋" },
-          status: "info",
-        });
-            const auth = getAuth();
-            const user = auth.currentUser;
-            console.log(auth);
-            console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
+  // const handleCreateSubmit = useCallback(async (e) => {
+  //   e.preventDefault();
+
+  //   const { email, password } = e.target.elements;
+  //   const auth = getAuth();
+  //   try {
+  //     await createUserWithEmailAndPassword(
+  //       auth,
+  //       email.value,
+  //       password.value
+  //     ).then((user) => {
+  //       console.log(user);
+  //       handleToast({
+  //         message: "成功註冊帳號!",
+  //         option: { theme: "colored", icon: "😄" },
+  //         status: "warning",
+  //       });
+  //     });
+  //   } catch (e) {
+  //     alert(e.message);
+  //   }
+  // }, []);
 
   return (
-    <>
-      <h1 className="text-center text-h1">註冊</h1>
-      <h2>註冊使用者</h2>
-      <form className="space-y-6 mb-6" onSubmit={handleCreateSubmit}>
-        <input
-          name="email"
-          placeholder="email"
-          type="email"
-          className="form-control"
-        />
-        <input
-          name="password"
-          placeholder="password"
-          type="password"
-          className="form-control"
-        />
-        <button
-          className="rounded mr-4 py-2 px-5 border border-blue text-blue transition duration-300 ease-in-out hover:bg-blue hover:border-transparent hover:text-white"
-          type="submit"
-        >
-          註冊帳號
-        </button>
-        <button
-          className="rounded mr-4 py-2 px-5 border border-red text-red transition duration-300 ease-in-out hover:bg-red hover:border-transparent hover:text-white"
-          type="button"
-          onClick={handleLogout}
-        >
-          登出
-        </button>
+    <section className="container pt-24">
+      <h1 className="text-center text-h1 mb-12">註冊</h1>
+      {error && <p className="text-red text-h2 text-center">{error}</p>}
+      <form className="space-y-4 w-1/2 mx-auto mb-6" onSubmit={handleSubmit}>
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            使用者帳號Email
+          </label>
+          <input
+            name="email"
+            placeholder="請輸入管理者帳號Email"
+            type="email"
+            className="form-control"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            密碼
+          </label>
+          <input
+            name="password"
+            placeholder="請輸入密碼"
+            type="password"
+            className="form-control"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="w-full flex flex-col justify-center items-center gap-3">
+          <button
+            className="w-full flex-auto rounded py-2 px-5 border border-blue text-blue transition duration-300 ease-in-out hover:bg-blue hover:border-transparent hover:text-white"
+            type="submit"
+          >
+            註冊帳號
+          </button>
+        </div>
       </form>
-    </>
+      <button
+        className="w-1/2 mx-auto block py-2 px-5 text-gray-dark border rounded transition duration-300 ease-in-out hover:border-primary hover:text-primary-dark"
+        type="button"
+        onClick={() => setLoginStatus(true)}
+      >
+        已經有帳號了~😅
+      </button>
+    </section>
   );
 };
 

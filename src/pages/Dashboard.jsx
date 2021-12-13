@@ -1,13 +1,19 @@
 
 import { useState, useEffect, useCallback } from "react";
-
+import { useUserAuth } from "../context/UserAuthContext";
 import PieChart from "../components/PieChart";
 import OderList from "../components/OderList";
 import FetchData from "../components/FetchData";
 
 const Dashboard = ({ setTarget }) => {
+    const { user, handleToast } = useUserAuth();
   useEffect(() => {
     setTarget("Dashboard");
+    handleToast({
+          message: `Welcome ${user.email}`,
+          option: { theme: "colored", icon: "🥴" },
+          status: "success",
+        });
   }, []);
   const [ordersList, setOrdersList] = useState([]);
   const [pieFilter, setPieFilter] = useState("全產品類別營收比重");

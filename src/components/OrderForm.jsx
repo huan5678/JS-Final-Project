@@ -1,6 +1,6 @@
 import FetchData from "./FetchData";
 import { useForm, Controller } from 'react-hook-form';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Select from "react-select";
 
 
@@ -19,10 +19,8 @@ export function OrderForm({
   setModalData,
   handleModal,
 }) {
-  const [payment, setPayment] = useState(null);
 
   const {
-    register,
     handleSubmit,
     control,
     watch,
@@ -203,7 +201,7 @@ export function OrderForm({
             <Controller
               name="payment"
               control={control}
-              rules={{ required: { value: true, message: "請選擇付款方式!" } }}
+              rules={{ required: { value: true, message: "請正確選擇一種付款方式!" } }}
               render={({ field }) => (
                 <Select
                   value={field.value}

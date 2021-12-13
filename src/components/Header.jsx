@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useUserAuth } from "../context/UserAuthContext";
 
-const Header = ({ target,setTarget }) => {
+const Header = ({ target, setTarget }) => {
+  const { user, logOut, handleToast } = useUserAuth();
+  // console.log(user);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
-      window.innerWidth > 768 ?
-        setIsMenuOpen(false): null
+      window.innerWidth > 768 ? setIsMenuOpen(false) : null;
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      handleToast({
+        message: "使用者登出!",
+        option: { theme: "colored", icon: "👋" },
+        status: "info",
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
     <div className="sticky top-0 z-20 bg-white">
       <header className="container bg-white flex justify-between items-center">
@@ -58,35 +72,45 @@ const Header = ({ target,setTarget }) => {
               >
                 立即訂購
               </a>
+              {
+                user ? (
               <a
                 className="link w-full lg:w-auto py-7 px-6"
                 href="/dashboard"
                 onClick={() => setTarget("Dashboard")}
               >
                 管理介面
-              </a>
-              <a
+                  </a>
+                ) : (
+                <a
                 className="link w-full lg:w-auto py-7 px-6"
                 href="/login"
-                onClick={() => setTarget("Dashboard")}
+                onClick={() => setTarget("")}
               >
-                使用者登入
-              </a>
+                管理者登入
+                    </a>
+                )
+              }
             </>
           ) : target === "Dashboard" ? (
             <>
-              <a className="link w-full lg:w-auto py-7 px-6" href="">
-                後台管理
-              </a>
+              {user && user.email ? (
+                <h2 className="text-xl text-primary mr-4">
+                  歡迎👤 管理者:{user.email} 😃
+                </h2>
+              ) : (
+                <></>
+              )}
               <a
                 className="link w-full lg:w-auto py-7 px-6 text-primary"
-                href=""
+                  onClick={handleLogout}
+                  href="/"
               >
-                管理者登入
+                登出
               </a>
             </>
           ) : (
-            <></>
+            <div className="py-10"></div>
           )}
         </nav>
       </header>

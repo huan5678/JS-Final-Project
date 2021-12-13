@@ -18,7 +18,7 @@ export function CartsList({
   };
 
   const handleEditCart = (id, quantity) => {
-    console.log(id, quantity);
+    // console.log(id, quantity);
     const data = {
       data: {
         id,
@@ -27,7 +27,7 @@ export function CartsList({
     };
     FetchData({ target: "carts-patch", data })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setCarts(res.data.carts);
         setTotal(res.data.total);
         setFinalTotal(res.data.finalTotal);
@@ -46,7 +46,7 @@ export function CartsList({
   const handleClearCarts = () => {
     FetchData({ target: "carts-deleteAll" })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         handleCartsList(res);
         setModalData({
           target: 'cartsList',
@@ -61,11 +61,11 @@ export function CartsList({
   };
 
   const handleRemoveCartsItem = (cart) => {
-    console.log(cart);
+    // console.log(cart);
     const cartsId = cart.id;
     FetchData({ target: "carts-delete", cartsId })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         handleCartsList(res);
       })
       .catch((err) => {

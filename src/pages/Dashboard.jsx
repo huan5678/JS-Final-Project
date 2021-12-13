@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useReducer, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import PieChart from "../components/PieChart";
 import OderList from "../components/OderList";

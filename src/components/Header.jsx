@@ -15,7 +15,7 @@ const Header = ({ target,setTarget }) => {
     <div className="sticky top-0 z-20 bg-white">
       <header className="container bg-white flex justify-between items-center">
         <h2 className="font-logo font-bold text-2xl">
-          <a href="/" className="py-4" onClick={()=>setTarget("Index")}>
+          <a href="/" className="py-4" onClick={() => setTarget("Index")}>
             WOWOROOM
           </a>
         </h2>
@@ -58,8 +58,19 @@ const Header = ({ target,setTarget }) => {
               >
                 立即訂購
               </a>
-              <a className="link w-full lg:w-auto py-7 px-6" href="/dashboard" onClick={() => setTarget("Dashboard")}>
+              <a
+                className="link w-full lg:w-auto py-7 px-6"
+                href="/dashboard"
+                onClick={() => setTarget("Dashboard")}
+              >
                 管理介面
+              </a>
+              <a
+                className="link w-full lg:w-auto py-7 px-6"
+                href="/login"
+                onClick={() => setTarget("Dashboard")}
+              >
+                使用者登入
               </a>
             </>
           ) : target === "Dashboard" ? (
@@ -74,7 +85,9 @@ const Header = ({ target,setTarget }) => {
                 管理者登入
               </a>
             </>
-          ): <></>}
+          ) : (
+            <></>
+          )}
         </nav>
       </header>
       <div className="bg-black h-10" />

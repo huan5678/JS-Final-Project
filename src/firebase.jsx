@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged,} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { useState, useEffect, useContext, createContext } from "react";
 
@@ -21,15 +21,15 @@ const firebaseConfig = {
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
-export default app;
 
 
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = props => {
+
   const [user, setUser] = useState();
   const [error, setError] = useState();
   useEffect(() => {

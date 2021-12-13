@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const apiPath = import.meta.env.API_PATH;
-const apiKey = import.meta.env.API_KEY;
+const apiPath = import.meta.env.VITE_API_PATH;
+const apiKey = import.meta.env.VITE_API_KEY;
+
 const baseUrl = "https://livejs-api.hexschool.io/api/livejs/v1";
 
 const productsUrl =

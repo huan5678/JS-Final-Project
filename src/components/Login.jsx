@@ -48,8 +48,16 @@ const Login = ({ setLoginStatus }) => {
   // }, []);
   
   return (
-    <section className="pt-24 container space-y-12">
-      <h1 className="text-center text-h1">管理者登入</h1>
+    <section className="pt-4 container space-y-12">
+      <h1 className="text-center text-h1">管理者登入
+        <span className="text-sm block text-gray">
+          測試用帳號: wowoadmin@gmail.com 密碼: admin1234
+          <br />
+          <span className="text-xl">
+            也歡迎註冊玩看看喔
+          </span>
+        </span>
+      </h1>
       {error && <p className="text-red text-h2 text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4 w-1/2 mx-auto">
         <div>

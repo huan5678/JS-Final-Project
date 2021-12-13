@@ -49,7 +49,7 @@ const SignUp = ({ setLoginStatus }) => {
   // }, []);
 
   return (
-    <section className="container pt-24">
+    <section className="container pt-4">
       <h1 className="text-center text-h1 mb-12">註冊</h1>
       {error && <p className="text-red text-h2 text-center">{error}</p>}
       <form className="space-y-4 w-1/2 mx-auto mb-6" onSubmit={handleSubmit}>

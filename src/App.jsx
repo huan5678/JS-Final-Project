@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
   BrowserRouter,
   Routes,
@@ -17,6 +19,11 @@ const App = () => {
 
   const [target, setTarget] = useState(null);
 
+  AOS.init({
+    duration: 500,
+    easing: "ease-in-out",
+    once: true,
+  });
 
   return (
     <>

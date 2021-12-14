@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/grid";
 
@@ -100,6 +99,7 @@ const recommendList = [
 SwiperCore.use([Autoplay,Grid]);
 
 function RecommendCard({ props }) {
+
   return (
     <div className="bg-white flex">
       <img src={props.productImg} className="md:w-24 object-fill" />
@@ -118,9 +118,10 @@ function RecommendCard({ props }) {
 }
 
 export function Recommend() {
+
   return (
     <section className="bg-primary-dark pt-14 pb-20" id="recommend">
-      <h2 className="text-h2 text-center text-white mb-8">好評推薦</h2>
+      <h2 className="text-h2 text-center text-white mb-8" >好評推薦</h2>
       <div className="container">
         <Swiper
           breakpoints={{

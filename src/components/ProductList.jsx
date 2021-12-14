@@ -9,6 +9,7 @@ const ProductCard = ({
   setFinalTotal,
   setModalData,
   handleModal,
+  idx,
 }) => {
 
   const handleAddCarts = () => {
@@ -38,7 +39,11 @@ const ProductCard = ({
   };
 
   return (
-    <li className="relative flex flex-col">
+    <li
+      className="relative flex flex-col"
+      data-aos="fade-in"
+      data-aos-delay={Math.floor(idx*100+300)}
+    >
       <div className="group" onClick={(product) => handleAddCarts(product)}>
         <div className="overflow-clip">
           <img
@@ -58,7 +63,9 @@ const ProductCard = ({
       </div>
       <h2 className="text-xl">{product.title}</h2>
       <h3 className="text-h2 mt-auto">
-        <span className="block text-xl line-through">{product.origin_price}</span>
+        <span className="block text-xl line-through">
+          {product.origin_price}
+        </span>
         {product.price}
       </h3>
       <span className="absolute top-0 right-0 translate-x-1 translate-y-3 bg-black text-white text-xl py-2 px-6">
@@ -125,7 +132,7 @@ export function ProductList({
       </select>
       <ul className="grid md:grid-cols-3 lg:grid-cols-4 place-content-stretch align-items-stretch gap-[30px]">
         {filterProducts.length > 0
-          ? filterProducts.map((product) => {
+          ? filterProducts.map((product,idx) => {
               return (
                 <ProductCard
                   product={product}
@@ -135,10 +142,11 @@ export function ProductList({
                   setFinalTotal={setFinalTotal}
                   setModalData={setModalData}
                   handleModal={handleModal}
+                  idx={idx}
                 />
               );
             })
-          : products.map((product) => {
+          : products.map((product,idx) => {
               return (
                 <ProductCard
                   product={product}
@@ -148,6 +156,7 @@ export function ProductList({
                   setFinalTotal={setFinalTotal}
                   setModalData={setModalData}
                   handleModal={handleModal}
+                  idx={idx}
                 />
               );
             })}

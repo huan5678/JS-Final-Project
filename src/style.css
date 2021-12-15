@@ -39,3 +39,37 @@
   @apply text-secondary rounded border border-secondary-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent py-2 px-3 w-full;
 }
 
+.animate-rotate {
+  animation: rotate 2s infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-30deg)
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-rotate-tiny {
+  animation: rotate-tiny 3s infinite;
+}
+
+@keyframes rotate-tiny {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

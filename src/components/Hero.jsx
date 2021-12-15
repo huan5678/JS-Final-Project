@@ -42,7 +42,10 @@ const Hero = () => {
           {heroArr.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <img src={item} className="object-fill " />
+                <img
+                  src={item}
+                  className="object-fill"
+                />
               </SwiperSlide>
             );
           })}

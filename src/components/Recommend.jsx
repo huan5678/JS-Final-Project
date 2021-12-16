@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/grid";
@@ -96,6 +98,10 @@ const recommendList = [
   },
 ];
 
+
+
+
+
 SwiperCore.use([Autoplay,Grid]);
 
 function RecommendCard({ props }) {
@@ -119,26 +125,54 @@ function RecommendCard({ props }) {
 
 export function Recommend() {
 
+    const [listOne, setListOne] = useState([]);
+    const [listTwo, setListTwo] = useState([]);
+
+
+  useEffect(() => {
+    for (let i = 0; i < recommendList.length / 2; i++) {
+      setListOne((listOne) => [...listOne, recommendList[i]]);
+    }
+    for (let i = recommendList.length / 2; i < recommendList.length; i++) {
+      setListTwo((listTwo) => [...listTwo, recommendList[i]]);
+    }
+    console.log(listOne);
+    console.log(listTwo);
+  }, []);
   return (
     <section className="bg-primary-dark pt-14 pb-20" id="recommend">
-      <h2 className="text-h2 text-center text-white mb-8" >好評推薦</h2>
+      <h2 className="text-h2 text-center text-white mb-8">好評推薦</h2>
       <div className="container">
         <Swiper
           breakpoints={{
             640: {
               slidesPerView: 1,
-              slidesPerGroup: 1,
-              slidesPerColumn: 1,
             },
             768: {
               slidesPerView: 2.2,
-              slidesPerGroup: 3,
-              slidesPerColumn: 2,
             },
           }}
-          grid={{
-            rows: 2,
-            fill: 'row'
+          spaceBetween={30}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          className="mb-8"
+        >
+          {listOne.map((props) => (
+            <SwiperSlide key={props.userName}>
+              <RecommendCard props={props} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <Swiper
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2.2,
+            },
           }}
           spaceBetween={30}
           autoplay={{
@@ -146,7 +180,7 @@ export function Recommend() {
             disableOnInteraction: false,
           }}
         >
-          {recommendList.map((props) => (
+          {listTwo.map((props) => (
             <SwiperSlide key={props.userName}>
               <RecommendCard props={props} />
             </SwiperSlide>

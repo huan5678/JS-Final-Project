@@ -27,6 +27,7 @@ const App = () => {
     duration: 500,
     easing: "ease-in-out",
     once: true,
+    throttleDelay: 1000,
   });
 
 

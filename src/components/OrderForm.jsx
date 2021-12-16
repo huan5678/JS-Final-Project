@@ -208,7 +208,7 @@ export function OrderForm({
                   onBlur={field.onBlur}
                   onChange={field.onChange}
                   ref={field.ref}
-                  classNameName="w-full"
+                  className="w-full"
                   theme={(theme) => ({
                     ...theme,
                     colors: {

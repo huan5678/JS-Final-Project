@@ -65,15 +65,6 @@ const OderList = ({
           </button>
         </div>
         <div>
-          {ordersList.length === 0 && ordersList === null ? (
-            <button
-              type="button"
-              className="rounded mr-4 py-2 px-5 border border-blue text-blue transition duration-300 ease-in-out hover:bg-blue hover:border-transparent hover:text-white"
-              onClick={() => handleCreateOrder()}
-            >
-              快速產生訂單
-            </button>
-          ) : null}
           <button
             type="button"
             className="rounded py-2 px-5 border border-red text-red transition duration-300 ease-in-out hover:bg-red hover:border-transparent hover:text-white"

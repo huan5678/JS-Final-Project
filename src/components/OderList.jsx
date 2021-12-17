@@ -142,7 +142,7 @@ const OderList = ({
                   <tr
                     className={`whitespace-nowrap ${
                       order.paid === true
-                        ? "text-gray-light bg-primary-md bg-opacity-60"
+                        ? "text-gray-light bg-primary-dark bg-opacity-40"
                         : ""
                     }`}
                     key={order.id}

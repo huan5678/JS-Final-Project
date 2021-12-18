@@ -25,7 +25,6 @@ const Header = ({ target, setTarget }) => {
       >
         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
         <path
-          fill-rule="evenodd"
           d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
         />
       </svg>
@@ -44,11 +43,49 @@ const Header = ({ target, setTarget }) => {
       console.log(err.message);
     }
   };
+
+    const [headerHeight, setHeaderHeight] = useState("0%");
+  const [lastScroll, setLastScroll] = useState(0);
+  const [currentScroll, setCurrentScroll] = useState(0);
+
+    const headerStyle = {
+      transform: `translateY(${headerHeight})`,
+    };
+
+  useEffect(() => {
+    if (target === "Index") {
+      window.addEventListener("scroll", function () {
+        setCurrentScroll(window.pageYOffset);
+
+        if (currentScroll <= 0) {
+          setHeaderHeight("0%");
+          return;
+        }
+
+        // 當前捲軸位置大於上一次捲軸位置 且 header目前顯示
+        if (currentScroll > lastScroll && headerHeight === "0%") {
+          setHeaderHeight("-100%");
+        }
+        // 當前捲軸位置小於上一次捲軸位置 且 header已經收起來
+        else if (currentScroll < lastScroll && headerHeight === "-100%") {
+          setHeaderHeight("0%");
+        }
+        // 更新上一次捲軸位置
+        setLastScroll(currentScroll);
+
+        // console.log("currentScroll", currentScroll);
+        // console.log("lastScroll", lastScroll);
+        // console.log(headerHeight);
+        // console.log(headerStyle);
+      });
+    }
+    }, [currentScroll,target]);
+  
   return (
-    <div className="sticky top-0 z-20 bg-white">
+    <div className="sticky top-0 z-20 bg-white transition-all duration-300" style={headerStyle}>
       <header className="container bg-white flex justify-between items-center">
         <h2 className="font-logo font-bold text-2xl">
-          <a href="/" className="py-4" onClick={() => setTarget("Index")}>
+          <a href="/#" className="py-4" onClick={() => setTarget("Index")}>
             WOWOROOM
           </a>
         </h2>

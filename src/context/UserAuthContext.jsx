@@ -19,6 +19,7 @@ const userAuthContext = createContext();
 export const UserAuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [error, setError] = useState("");
+  const [initializing, setInitializing] = useState(true);
 
   const handleToast = ({ message, option, status }) => {
     switch (status) {
@@ -60,14 +61,30 @@ export const UserAuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (initializing) {
+        setInitializing(false);
+      }
     });
+
+
     return () => {
       unsubscribe();
     }
-  }, []);
+  }, [auth, initializing]);
+
+  if (initializing) return "Loading...";
+
   return (
     <userAuthContext.Provider
-      value={{ user, signUp, logIn, logOut, googleSignIn, handleToast }}
+      value={{
+        user,
+        initializing,
+        signUp,
+        logIn,
+        logOut,
+        googleSignIn,
+        handleToast,
+      }}
     >
       {children}
       <ToastContainer

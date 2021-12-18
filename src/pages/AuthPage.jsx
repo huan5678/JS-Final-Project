@@ -10,9 +10,9 @@ const AuthPage = () => {
   return (
     <div className="container">
       {loginStatus ? (
-        <img src={loginImg} class="max-w-[224px] mx-auto" alt="login" />
+        <img src={loginImg} className="max-w-[224px] mx-auto" alt="login" />
       ) : (
-        <img src={signUpImg} class="max-w-[224px] mx-auto" alt="signup" />
+        <img src={signUpImg} className="max-w-[224px] mx-auto" alt="signup" />
       )}
       {loginStatus ? (
         <Login setLoginStatus={setLoginStatus} />

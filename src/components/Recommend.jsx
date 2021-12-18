@@ -136,8 +136,8 @@ export function Recommend() {
     for (let i = recommendList.length / 2; i < recommendList.length; i++) {
       setListTwo((listTwo) => [...listTwo, recommendList[i]]);
     }
-    console.log(listOne);
-    console.log(listTwo);
+    // console.log(listOne);
+    // console.log(listTwo);
   }, []);
   return (
     <section className="bg-primary-dark pt-14 pb-20" id="recommend">
@@ -154,7 +154,7 @@ export function Recommend() {
           }}
           spaceBetween={30}
           autoplay={{
-            delay: 5000,
+            delay: 3000,
             disableOnInteraction: false,
           }}
           className="mb-8"
@@ -176,7 +176,7 @@ export function Recommend() {
           }}
           spaceBetween={30}
           autoplay={{
-            delay: 5000,
+            delay: 3500,
             disableOnInteraction: false,
           }}
         >

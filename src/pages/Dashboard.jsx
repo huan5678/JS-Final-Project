@@ -9,12 +9,14 @@ const Dashboard = ({ setTarget }) => {
     const { user, handleToast } = useUserAuth();
   useEffect(() => {
     setTarget("Dashboard");
-    handleToast({
-          message: `Welcome ${user.email}`,
-          option: { theme: "colored", icon: "🥴" },
-          status: "success",
-        });
-  }, []);
+    if (user) {
+      handleToast({
+        message: `Welcome ${user.email}`,
+        option: { theme: "colored", icon: "🥴" },
+        status: "success",
+      });
+    }
+  }, [user]);
   const [ordersList, setOrdersList] = useState([]);
   const [pieFilter, setPieFilter] = useState("全產品類別營收比重");
   const [pieData, setPieData] = useState({
@@ -31,7 +33,7 @@ const Dashboard = ({ setTarget }) => {
   useEffect(() => {
     FetchData({ target: "admin-orders" }).then((res) => {
       setOrdersList(res.data.orders);
-      console.log(res.data);
+      // console.log(res.data);
     });
   }, []);
 
@@ -52,7 +54,7 @@ const Dashboard = ({ setTarget }) => {
 
   const handleChartData = (dates) => {
     const productList = dates.map((item) => item.category);
-    console.log("dates", dates);
+    // console.log("dates", dates);
     let category = [];
     let priceData = [];
     if (pieFilter === "全產品類別營收比重") {
@@ -69,8 +71,8 @@ const Dashboard = ({ setTarget }) => {
       Object.values(filterPaidData).forEach((item) => {
         priceData.push(item);
       });
-      console.log("category", category);
-      console.log('priceData', priceData);
+      // console.log("category", category);
+      // console.log('priceData', priceData);
     } else {
       let paidItems = {};
       dates.forEach((item) => {
@@ -86,13 +88,13 @@ const Dashboard = ({ setTarget }) => {
       let result = Object.entries(paidItems).map(([key, value]) => {
         return { name: key, price: value };
       });
-      console.log("result", result);
+      // console.log("result", result);
       result.forEach((item) => {
         priceArr.push(item.price);
       });
       priceArr.sort((a, b) => b - a);
       priceArr.length = 3;
-      console.log("priceArr", priceArr);
+      // console.log("priceArr", priceArr);
       let otherPrice = 0;
       result.forEach((item) => {
         priceArr.forEach((item2) => {
@@ -106,21 +108,21 @@ const Dashboard = ({ setTarget }) => {
       });
       category.push("其他");
       priceData.push(otherPrice);
-      console.log("category", category);
-      console.log("priceData", priceData);
+      // console.log("category", category);
+      // console.log("priceData", priceData);
     }
     setData(category, priceData);
-    console.log("pieData", pieData);
+    // console.log("pieData", pieData);
   };
 
   useEffect(() => {
-    console.log("pieFilter", pieFilter);
+    // console.log("pieFilter", pieFilter);
     const paidData = CountSalesData();
     handleChartData(paidData);
   }, [pieFilter, ordersList]);
 
    useEffect(() => {
-     console.log(pieData);
+    //  console.log(pieData);
    }, [pieData]);
 
   return (

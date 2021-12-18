@@ -1,12 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom';
 import { useUserAuth } from "../context/UserAuthContext";
 
-export default function GateRoute({ children }) {
-  let { user } = useUserAuth();
-  console.log(user);
-  if (!user) {
-   return  <Navigate to="/login" />
+const GateRoute = ({ children }) => {
+  const { user, initializing } = useUserAuth();
+  // console.log(user);
+
+  if (initializing) {
+    return <div>Loading...</div>;
   }
-  return children
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 }
+
+export default GateRoute;

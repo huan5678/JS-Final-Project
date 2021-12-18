@@ -42,22 +42,19 @@ const Hero = () => {
           {heroArr.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <img
-                  src={item}
-                  className="object-fill"
-                />
+                <img src={item} className="object-fill" />
               </SwiperSlide>
             );
           })}
         </Swiper>
-        <div className="absolute bottom-0 left-0 pb-12 pl-14 z-10" >
+        <div className="absolute bottom-0 left-0 pb-12 pl-14 z-10">
           <h1 className="text-white text-h1">
             窩窩家居
             <br /> 跟您一起品味生活
           </h1>
         </div>
       </div>
-      <h2 className="text-center text-h2 mb-7">
+      <h2 className="text-center text-h2 mb-7" id="icon-check">
         床墊優勢
       </h2>
       <ul className="flex gap-7.5 text-center" id="good">

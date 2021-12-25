@@ -1,10 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
+import "swiper/css/lazy";
 
-import SwiperCore, { Autoplay } from "swiper";
+import SwiperCore, { Autoplay, Lazy } from "swiper";
 
-SwiperCore.use([Autoplay]);
+SwiperCore.use([Autoplay, Lazy]);
 
 
 
@@ -31,9 +32,10 @@ const Hero = () => {
 
   return (
     <section className="pt-8 pb-14 container" id="hero">
-      <div className="relative mb-14" data-aos="fade-in" data-aos-delay="300">
+      <div className="relative mb-14 " data-aos="fade-in" data-aos-delay="300">
         <Swiper
           loop
+          lazy={true}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
@@ -42,7 +44,8 @@ const Hero = () => {
           {heroArr.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <img src={item} className="object-fill" />
+                <img src={item} className="object-fill swiper-lazy" />
+                <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
               </SwiperSlide>
             );
           })}

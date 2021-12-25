@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 
 const ProductCard = ({
+  carts,
   product,
   setCarts,
   setTotal,
@@ -13,22 +14,62 @@ const ProductCard = ({
 }) => {
 
   const handleAddCarts = () => {
+
+    let inCart = false;
+    carts.forEach((cart) => {
+      if (cart.product.id === product.id) {
+        inCart = true;
+      }
+    });
+
+    if (!inCart) {
+      const data = {
+        data: {
+          productId: product.id,
+          quantity: 1,
+        },
+      };
+      FetchData({ target: "carts-post", data })
+        .then((res) => {
+          // console.log(res);
+          // console.log(res.data.carts[0].product.title + "加入購物車");
+          setModalData({
+            icon: "productList",
+            title: res.data.carts[0].product.title,
+            content: "成功加入購物車",
+          });
+          handleModal();
+          setCarts(res.data.carts);
+          setTotal(res.data.total);
+          setFinalTotal(res.data.finalTotal);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      setModalData({
+        icon: "cartEdit",
+        title: "",
+        content: `
+          ${product.title}已在購物車中
+        `,
+      });
+      handleModal();
+    }
+  };
+
+
+  const handleEditCart = (id, quantity) => {
+    // console.log(id, quantity);
     const data = {
       data: {
-        productId: product.id,
-        quantity: 1,
+        id,
+        quantity: +quantity,
       },
     };
-    FetchData({ target: "carts-post", data })
+    FetchData({ target: "carts-patch", data })
       .then((res) => {
-        // console.log(res);
-        // console.log(res.data.carts[0].product.title + "加入購物車");
-        setModalData({
-          icon: "productList",
-          title: res.data.carts[0].product.title,
-          content: "成功加入購物車",
-        });
-        handleModal();
+        // console.log(res.data);
         setCarts(res.data.carts);
         setTotal(res.data.total);
         setFinalTotal(res.data.finalTotal);
@@ -44,7 +85,7 @@ const ProductCard = ({
       data-aos="fade-in"
       data-aos-delay={Math.floor(idx*100+300)}
     >
-      <div className="group" onClick={(product) => handleAddCarts(product)}>
+      <div className="group cursor-pointer" onClick={(product) => handleAddCarts(product)}>
         <div className="overflow-clip">
           <img
             src={product.images}
@@ -76,6 +117,7 @@ const ProductCard = ({
 };
 
 export function ProductList({
+  carts,
   products,
   setProducts,
   categories,
@@ -135,6 +177,7 @@ export function ProductList({
           ? filterProducts.map((product,idx) => {
               return (
                 <ProductCard
+                  carts={carts}
                   product={product}
                   key={product.title}
                   setCarts={setCarts}
@@ -149,6 +192,7 @@ export function ProductList({
           : products.map((product,idx) => {
               return (
                 <ProductCard
+                  carts={carts}
                   product={product}
                   key={product.title}
                   setCarts={setCarts}

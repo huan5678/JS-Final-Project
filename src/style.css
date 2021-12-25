@@ -39,6 +39,14 @@
   @apply text-secondary rounded border border-secondary-light focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent py-2 px-3 w-full;
 }
 
+.btn-warn {
+  @apply w-full transition duration-300 ease-in-out bg-red hover:bg-red-dark text-white grid place-content-center rounded-xl text-xl py-3;
+}
+
+.btn-cancel {
+  @apply w-full transition duration-300 ease-in-out bg-black hover:bg-primary-dark text-white grid place-content-center rounded-xl text-xl py-3
+}
+
 .animate-rotate {
   animation: rotate 2s infinite;
 }

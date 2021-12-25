@@ -12,6 +12,7 @@ export function CartsList({
   setSendOrder,
   setModalData,
   handleModal,
+  setModalIsOpen,
 }) {
   const moneyFormat = (num) => {
     return Number(num.toFixed(1)).toLocaleString();
@@ -49,7 +50,7 @@ export function CartsList({
         // console.log(res.data);
         handleCartsList(res);
         setModalData({
-          target: 'cartsList',
+          icon: "cartsList",
           content: res.data.message,
           title: "",
         });
@@ -67,6 +68,7 @@ export function CartsList({
       .then((res) => {
         // console.log(res.data);
         handleCartsList(res);
+        setModalIsOpen(false);
       })
       .catch((err) => {
         console.log(err);
@@ -77,8 +79,7 @@ export function CartsList({
     FetchData({ target: "carts-get" }).then((res) => {
       handleCartsList(res);
     });
-    (sendOrder === true) ? setSendOrder(false) : null;
-
+    sendOrder === true ? setSendOrder(false) : null;
   }, [setCarts, setTotal, setFinalTotal, sendOrder, setSendOrder]);
 
   return (

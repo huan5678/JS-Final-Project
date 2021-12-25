@@ -12,7 +12,6 @@ const paymentData = [
 ]
 
 
-
 export function OrderForm({
   setOrderData,
   setSendOrder,
@@ -55,7 +54,7 @@ export function OrderForm({
         });
         setSendOrder(true);
         setModalData({
-          target: "orderForm",
+          icon: "orderForm",
           title: "已成功送出訂單",
           content: "感謝您本次的訂購，我們將會盡快為您處理",
         });
@@ -63,6 +62,12 @@ export function OrderForm({
       })
       .catch((err) => {
         console.log(err);
+        setModalData({
+          icon: "exp",
+          title: "發生錯誤",
+          content: err.response.data.message,
+        });
+        handleModal();
       });
   };
 

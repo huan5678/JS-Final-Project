@@ -1,35 +1,24 @@
-
 import FetchData from "./FetchData";
+
 
 const OderList = ({
   ordersList,
   setOrdersList,
   pieFilter,
   setPieFilter,
+  setModalData,
+  handleModal,
+  setModalIsOpen,
 }) => {
-
-    const handleOrderStatusChange = (id, paid) => {
-      FetchData({
-        target: "admin-put",
-        data: {
-          data: {
-            id,
-            paid: !paid,
-          },
-        },
-      })
-        .then((res) => {
-          setOrdersList(res.data.orders);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-  const handleDeleteOrder = (ordersId) => {
+  const handleOrderStatusChange = (id, paid) => {
     FetchData({
-      target: "admin-delete",
-      ordersId,
+      target: "admin-put",
+      data: {
+        data: {
+          id,
+          paid: !paid,
+        },
+      },
     })
       .then((res) => {
         setOrdersList(res.data.orders);
@@ -39,9 +28,92 @@ const OderList = ({
       });
   };
 
+  const deleteOrder = (ordersId) => {
+    FetchData({
+      target: "admin-delete",
+      ordersId,
+    })
+      .then((res) => {
+        setOrdersList(res.data.orders);
+        setModalIsOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDeleteOrder = (order) => {
+    // console.log(order);
+    setModalData({
+      icon: "removeItem",
+      title: `是否確定將訂單編號 ${order.id} 刪除 🥲`,
+      content: "",
+      action: (
+        <div className="my-6 flex justify-between items-center gap-4 w-full">
+          <button
+            type="button"
+            className="btn-warn"
+            onClick={() => deleteOrder(order.id)}
+          >
+            確定
+          </button>
+          <button
+            type="button"
+            className="btn-cancel"
+            onClick={() => setModalIsOpen(false)}
+          >
+            關閉
+          </button>
+        </div>
+      ),
+    });
+    handleModal();
+  };
+
   const handlePieFilter = (target) => {
     setPieFilter(target);
   };
+
+
+  const deleteAllOrder = () => {
+    FetchData({
+      target: "admin-deleteAll",
+    })
+      .then((res) => {
+        setOrdersList(res.data.orders);
+        setModalIsOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const handleClearOrders = () => {
+    setModalData({
+      icon: "removeItem",
+      title: `是否確定將全部訂單刪除 🤭`,
+      content: "",
+      action: (
+        <div className="my-6 flex justify-between items-center gap-4 w-full">
+          <button
+            type="button"
+            className="btn-warn"
+            onClick={() => deleteAllOrder()}
+          >
+            確定
+          </button>
+          <button
+            type="button"
+            className="btn-cancel"
+            onClick={() => setModalIsOpen(false)}
+          >
+            關閉
+          </button>
+        </div>
+      ),
+    });
+    handleModal();
+  }
 
   return (
     <section className="container">
@@ -64,6 +136,7 @@ const OderList = ({
             全品項營收比重
           </button>
         </div>
+
         <div>
           <button
             type="button"
@@ -179,7 +252,7 @@ const OderList = ({
                       <button
                         type="button"
                         className="bg-red hover:bg-red-dark text-white py-2 px-4 rounded"
-                        onClick={() => handleDeleteOrder(order.id)}
+                        onClick={() => handleDeleteOrder(order)}
                       >
                         刪除
                       </button>

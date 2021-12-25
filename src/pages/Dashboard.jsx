@@ -5,8 +5,13 @@ import PieChart from "../components/PieChart";
 import OderList from "../components/OderList";
 import FetchData from "../components/FetchData";
 
-const Dashboard = ({ setTarget }) => {
-    const { user, handleToast } = useUserAuth();
+const Dashboard = ({
+  setTarget,
+  setModalData,
+  handleModal,
+  setModalIsOpen,
+}) => {
+  const { user, handleToast } = useUserAuth();
   useEffect(() => {
     setTarget("Dashboard");
     if (user) {
@@ -23,12 +28,9 @@ const Dashboard = ({ setTarget }) => {
     labels: [],
     data: [],
   });
-  const setData = useCallback(
-    (labels, data) => {
-      setPieData({ labels, data });
-    },
-    []
-  );
+  const setData = useCallback((labels, data) => {
+    setPieData({ labels, data });
+  }, []);
 
   useEffect(() => {
     FetchData({ target: "admin-orders" }).then((res) => {
@@ -36,8 +38,6 @@ const Dashboard = ({ setTarget }) => {
       // console.log(res.data);
     });
   }, []);
-
-
 
   const CountSalesData = () => {
     let paidData = ordersList
@@ -121,9 +121,9 @@ const Dashboard = ({ setTarget }) => {
     handleChartData(paidData);
   }, [pieFilter, ordersList]);
 
-   useEffect(() => {
+  useEffect(() => {
     //  console.log(pieData);
-   }, [pieData]);
+  }, [pieData]);
 
   return (
     <main className="pt-15">
@@ -155,6 +155,9 @@ const Dashboard = ({ setTarget }) => {
         setOrdersList={setOrdersList}
         pieFilter={pieFilter}
         setPieFilter={setPieFilter}
+        setModalData={setModalData}
+        handleModal={handleModal}
+        setModalIsOpen={setModalIsOpen}
       />
     </main>
   );

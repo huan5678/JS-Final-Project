@@ -24,7 +24,7 @@ const header = {
 }
 
 const FetchData = (props) => {
-  console.log(props);
+  // console.log(props);
   const target = props.target;
 
   switch (target) {

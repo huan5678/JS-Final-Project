@@ -140,7 +140,7 @@ const Header = ({ target, setTarget }) => {
                 ) : (
                 <a
                 className="link w-full lg:w-auto py-7 px-6"
-                href="/dashboard"
+                href="/login"
                 onClick={() => setTarget("")}
               >
                 管理者登入

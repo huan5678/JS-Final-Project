@@ -162,7 +162,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route
-              path="/index"
+              path="/"
               element={
                 <Index
                   setTarget={setTarget}
@@ -174,7 +174,7 @@ const App = () => {
               exact
             />
             <Route
-              path="/"
+              path="/dashboard"
               element={
                 <GateRoute>
                   <Dashboard
